@@ -1,0 +1,22 @@
+{
+  "name": "fullstackexcercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingelmarvin/FullstackExcercise.git"
+  },
+  "author": "Marvin Ingel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ingelmarvin/FullstackExcercise/issues"
+  },
+  "homepage": "https://github.com/ingelmarvin/FullstackExcercise#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
