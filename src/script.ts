@@ -13,7 +13,8 @@ $(function () {
             data: form.serialize(),
             success: function (res) {
                 console.log(res);
-                document.cookie = `token=Bearer ${res.accessToken}`
+                document.cookie = `token=Bearer ${res.accessToken}`;
+                redirectUserTo('/');
             }
         });
     }));
