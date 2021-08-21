@@ -104,7 +104,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/logedInOnly', authenticateToken, (req, res) => {
+app.get('/loggedInOnly', authenticateToken, (req, res) => {
     res.json({
         message: 'You are logged in! :)'
     })
