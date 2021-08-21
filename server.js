@@ -55,7 +55,7 @@ app.post('/login', (req, res) => {
                 message: 'db error'
             });
         }
-        else if(docs.length === 0){
+        else if (docs.length === 0) {
             console.log('user not found');
             return res.json({
                 success: false,

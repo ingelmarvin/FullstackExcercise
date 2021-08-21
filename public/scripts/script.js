@@ -15,6 +15,11 @@ $(function () {
             }
         });
     }));
+    $("#toggle").on("click", function () {
+        var themeMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', themeMode);
+        $("#themeLabel").text(themeMode + "mode");
+    });
 });
 function redirectUserTo(url) {
     window.location.replace(url);

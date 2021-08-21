@@ -1,6 +1,22 @@
-<%- include('../partials/head', {pageName: 'Startseite'});  %> 
-<h1>Moin <%=name%></h1>
+<%- include('../partials/head', {pageName: 'Startseite' }); %>
+    <h1>Moin <%=name%>
+    </h1>
 
-<a href="/login">Login</a><br>
-<a href="/register">Registrieren</a>
-<%- include('../partials/foot') %>
+    <a href="/login">Login</a><br>
+    <a href="/register">Registrieren</a><br>
+
+    <input type="checkbox" id="toggle" class="toggle--checkbox">
+    <label for="toggle" class="toggle--label">
+        <span class="toggle--label-background"></span>
+    </label>
+
+
+    <div id="test">
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+            consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+            sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    </div>
+    <%- include('../partials/foot') %>

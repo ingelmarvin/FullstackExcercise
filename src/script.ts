@@ -2,10 +2,10 @@
 $(function () {
     $("#loginForm").on("submit", (function (e) {
 
-        e.preventDefault(); // avoid to execute the actual submit of the form.
+        e.preventDefault(); // default formular-post verhindern
 
-        const form = $(this);
-        const url = form.attr('action');
+        const form: JQuery<HTMLElement> = $(this);
+        const url: string = form.attr('action')!;
 
         $.ajax({
             type: "POST",
@@ -18,6 +18,12 @@ $(function () {
             }
         });
     }));
+
+    $("#toggle").on("click", function () {
+        const themeMode: string = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', themeMode);
+        $("#themeLabel").text(`${themeMode}mode`);
+    });
 
 });
 
