@@ -22,11 +22,26 @@ $(function () {
     $("#toggle").on("click", function () {
         const themeMode: string = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', themeMode);
+        document.cookie = `theme=${themeMode}`;
         $("#themeLabel").text(`${themeMode}mode`);
     });
+    
+    //TODO: load theme with cookie
+    const themeMode: string = getCookie('theme');
+    document.documentElement.setAttribute('data-theme', themeMode);
 
 });
 
 function redirectUserTo(url: string) {
     window.location.replace(url);
 }
+
+function getCookie(name: string) {
+    const value: string= `; ${document.cookie}`;
+    const parts: string[] = value.split(`; ${name}=`);
+    if (parts !== undefined && parts.length === 2){
+        return '' + parts.pop()!.split(';').shift();
+    }else{
+        return '';
+    }
+  }

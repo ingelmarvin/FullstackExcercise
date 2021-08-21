@@ -18,9 +18,22 @@ $(function () {
     $("#toggle").on("click", function () {
         var themeMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', themeMode);
+        document.cookie = "theme=" + themeMode;
         $("#themeLabel").text(themeMode + "mode");
     });
+    var themeMode = getCookie('theme');
+    document.documentElement.setAttribute('data-theme', themeMode);
 });
 function redirectUserTo(url) {
     window.location.replace(url);
+}
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts !== undefined && parts.length === 2) {
+        return '' + parts.pop().split(';').shift();
+    }
+    else {
+        return '';
+    }
 }
