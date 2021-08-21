@@ -37,7 +37,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.render('pages/login.ejs');
+    res.render('pages/login.ejs', {
+        redirect: req.query.redirect === undefined ? '/' : req.query.redirect
+    });
 });
 
 app.get('/register', (req, res) => {
@@ -96,6 +98,7 @@ app.post('/register', async (req, res) => {
         const data = req.body;
         data.password = hashedPassword;
         //TODO: checken ob user existiert -> dann nich insert sondern fehlermeldung (user existiert bereits)
+        //TODO: redirect route von login an register weiterleiten und ebenfalls einloggen statt zu login weiterzuleiten
         db.users.insert(data);
         console.log(data);
         res.redirect('/login');
@@ -104,13 +107,17 @@ app.post('/register', async (req, res) => {
     }
 });
 
-app.get('/loggedInOnly', authenticateToken, (req, res) => {
+app.get('/loggedInOnly', (req, res, next) =>{
+    authenticateToken(req, res, next, 'loggedInOnly');
+}, (req, res) => {
     res.json({
         message: 'You are logged in! :)'
-    })
+    });
 });
 
-app.post('/addProduct', authenticateToken, (req, res) => {
+app.post('/addProduct', (req, res, next) => {
+    authenticateToken(req, res, next, 'addProduct');
+}, (req, res) => {
     console.log('Neuer Post');
     const data = req.body;
     console.log(data);
@@ -122,33 +129,43 @@ app.post('/addProduct', authenticateToken, (req, res) => {
     });
 });
 
-app.get('/addProduct', authenticateToken, (req, res) => {
+app.get('/addProduct', (req, res, next) => {
+    authenticateToken(req, res, next, 'addProduct');
+}, (req, res) => {
     res.json({
         name: req.user.name
-    })
+    });
 });
 
 
 
 //authentication middleware
 
-function authenticateToken(req, res, next) {
+function authenticateToken(req, res, next, route="/") {
     console.log(req.cookies['token']);
     const authHeader = req.cookies['token'];
     const token = authHeader && authHeader.split(' ')[1]
     console.log("verifying");
 
     //no token
-    if (token == null) return res.sendStatus(401);
+    if(token === null){
+        return redirectToLogin(req, res, route);
+    }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         //wrong token
-        if (err) return res.sendStatus(403);
+        if(err){
+            return redirectToLogin(req, res, route);
+        }
         //correct token
         req.user = user;
         console.log(`User ${user.name} verified`);
         next();
     });
+}
+
+function redirectToLogin(req, res, route){
+    res.redirect(`/login?redirect=${route}`)
 }
 
 

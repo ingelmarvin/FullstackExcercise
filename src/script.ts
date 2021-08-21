@@ -14,7 +14,7 @@ $(function () {
             success: function (res) {
                 console.log(res);
                 document.cookie = `token=Bearer ${res.accessToken}`;
-                redirectUserTo('/');
+                redirectUserTo($('#redirect').attr('value')!);
             }
         });
     }));
